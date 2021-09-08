@@ -9,10 +9,5 @@ frontend:
     baseDirectory: templates
     files:
       - '**/*'
-backend:
-  phases:
-    build:
-      commands:
-        - amplifyPush --simple
   cache:
     paths: []
