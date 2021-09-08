@@ -6,8 +6,13 @@ frontend:
       commands: []
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: /
+    baseDirectory: templates
     files:
       - '**/*'
+backend:
+  phases:
+    build:
+      commands:
+        - amplifyPush --simple
   cache:
     paths: []
