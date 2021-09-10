@@ -8,7 +8,7 @@ frontend:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: templates
     files:
-      - '**/*'
-      - '**/*'
+      - 'index.html'
+      - 'download.html'
   cache:
     paths: []
