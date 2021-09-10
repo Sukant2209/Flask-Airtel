@@ -9,5 +9,6 @@ frontend:
     baseDirectory: templates
     files:
       - '**/*'
+      - '**/*'
   cache:
     paths: []
