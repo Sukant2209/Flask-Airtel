@@ -45,7 +45,7 @@ def download():
         requested_youtube_res = request.form.get("selectedLink")
         video_to_download = YouTube(download_video_name).streams.get_by_itag(download_video_tag[requested_youtube_res])
         address = video_to_download.download()
-        print(address)
+        #print(address)
         return redirect(url_for("index"))
 
     return render_template("download.html")
