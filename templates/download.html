@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>GetSchwiftyInHere</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1> Always Remember :</h1>
+    <p> With great power comes great responsibility</p>
+    
+        <p>Song name -  {{video_title}}</p>
+        <p>Company - {{video_author}}</p>
+        <p>Rating - {{video_rating}}</p>
+        <form action="/download" method="post">
+
+            <div class="form-group">
+              <select class="form-select" name="selectedLink" aria-label="Default select example">
+                <option selected>Select resolution to download</option>
+                    {% for x in available_resolution_list %}
+                    <option value="{{ x }}">{{ x }}</option>
+                    {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+       </form>
+
+</body>
+</html>
