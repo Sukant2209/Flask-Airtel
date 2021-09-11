@@ -12,9 +12,10 @@
     <h1> Always Remember :</h1>
     <p> With great power comes great responsibility</p>
     
-        <p>Song name -  {{video_title}}</p>
+        <p>Video name -  {{video_title}}</p>
         <p>Company - {{video_author}}</p>
         <p>Rating - {{video_rating}}</p>
+        <div class="jumbotron text-center">
         <form action="/download" method="post">
 
             <div class="form-group">
@@ -27,6 +28,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
        </form>
+       </div>
 
 </body>
 </html>

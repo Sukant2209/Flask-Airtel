@@ -1,10 +1,13 @@
-from flask import Flask, render_template, request, session , redirect, url_for
+import logging
+from flask import Flask, render_template, request, session , redirect, url_for, abort
 from pytube import YouTube
 import os
 
+logging.basicConfig(filename="application.log", level=logging.INFO)
 
 app= Flask(__name__)
 app.secret_key="mysecretkey"
+
 
 @app.route("/", methods=["GET","POST"])
 def index():
@@ -12,9 +15,15 @@ def index():
     if request.method=="POST":
         
         get_youtube_url = request.form.get("youtube_url")
-        yt_video_obj = YouTube(get_youtube_url)
+
+        if not get_youtube_url or not get_youtube_url.startswith("https://"):
+            app.logger.error("Youtube Url not found")
+            abort(401)
+
+        app.logger.info(" Youtube Url is : %s ",get_youtube_url)
 
         session["video_name"] = get_youtube_url
+        yt_video_obj = YouTube(get_youtube_url)
 
         video_title= yt_video_obj.title
         video_author= yt_video_obj.author
@@ -37,15 +46,21 @@ def index():
 def download():
     
     if request.method=="POST":
-        path = os.getcwd()
         if "video_name" and "video_res_tag" in session :
-                download_video_name = session["video_name"]
-                download_video_tag=session["video_res_tag"]
+            download_video_name = session["video_name"]
+            download_video_tag=session["video_res_tag"]
 
         requested_youtube_res = request.form.get("selectedLink")
+
+        if not requested_youtube_res or requested_youtube_res == "Select resolution to download" :
+            app.logger.error("No Resolution Selected")
+            abort(401)
+        
+        app.logger.info("Video Resolution Selected : %s",requested_youtube_res)
         video_to_download = YouTube(download_video_name).streams.get_by_itag(download_video_tag[requested_youtube_res])
         address = video_to_download.download()
-        #print(address)
+        app.logger.info("Files saved to location %s", address)
+
         return redirect(url_for("index"))
 
     return render_template("download.html")
